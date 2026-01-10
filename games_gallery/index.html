@@ -9,52 +9,66 @@
     </head>
     <body>
         <div class="television">
-            <img class="ds-image" src="ds.png" alt="DS" />
-            <div class="centered-rectangle">
-                <iframe frameborder="0" src="https://itch.io/embed-upload/16013232?color=000000" allowfullscreen width="680" height="380" style="border-radius: 12px; display: block;">
-                    <a href="https://tuituineo.itch.io/new-year">Play new year on itch.io</a>
-                </iframe>
+            <div class="ds-total">
+                <img class="ds-image" src="ds.png" alt="DS" />
+                            <div class="top-rectangle">
+                                <iframe frameborder="0" src="https://itch.io/embed-upload/16013232?color=000000" allowfullscreen  style="border-radius: 12px; display: block; height:100%; width:100%;">
+                                    <a href="https://tuituineo.itch.io/new-year">Play new year on itch.io</a>
+                                </iframe>
+                            </div>
+                            <div class="bottom-rectangle">
+                                <div class="">
+                                    <p>OOO</p>
+                                </div>
+                            </div>
             </div>
+            
         </div>
        
         <style>
+            .ds-total{
+                position: relative;;
+                width: 648px;
+                height: fit-content;
+                background: blue   no-repeat center center;
+                background-size: contain;
+            }
+            
             .television {
                 display: flex;
                 justify-content: center;
-                align-items: center;
-                width: 100vw;
-                height: 100vh;
-                 background: #1f2937 url('background.png') no-repeat center center;
-                            background-size: cover;
+                background:  url(background.png) no-repeat center center;
             }
             .ds-image {
-                display: block;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                max-width: 100vw;
-                max-height: 100vh;
-                height:100vh;
-                z-index: 0;
                 pointer-events: none;
+                height: fit-content;
             }
-            .centered-rectangle {
-                position: relative;
+            .top-rectangle {
+                position: absolute;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background: #e5e7eb;
-                border-radius: 24px;
-                box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-                width: 572px;
-                height: 339px;
+                /* background: green; */
+                border-radius: 5px;
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+                width: 441px;
+                height: 273px;
                 padding: 0;
                 margin: 0 auto;
-                max-width: 100vw;
                 z-index: 1;
-                position:relative;
-                top:-201px;
+                position: relative;
+                    top: -645px;
+            }
+
+            .bottom-rectangle {
+                position: absolute;
+                background-color: gray;
+                top: 389px;
+                width: 346px;
+                height: 260px;
+                border-radius: 6px;
+                    right: 23%;
+
             }
         </style>
     </body>
