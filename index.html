@@ -1,10 +1,548 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample HTML Page</title>
-</head>
-<body>
-<p>Boop.</p>
-</body>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fake OS</title>
+    <script src="/tailwind.js"></script>
+    <link href="/style.css" rel="stylesheet" type="text/css" media="all" />
+    <style>
+      /* Style pour la barre en bas */
+      .taskbar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background-color: #333;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .taskbar .start-menu {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .taskbar .start-menu img {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+      }
+
+      .taskbar .time {
+        font-size: 14px;
+      }
+
+      .taskbar .active-apps {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .taskbar .active-app {
+        background-color: #555;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      /* Style pour les fenêtres draggable */
+      .draggable {
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        width: 400px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+      }
+
+      .draggable-header {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        cursor: move;
+        user-select: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .draggable-header .window-controls {
+        display: flex;
+        gap: 5px;
+      }
+
+      .draggable-header .window-controls button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .draggable-content {
+        padding: 15px;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      /* Style pour l'icône sur le fond */
+      .desktop-icon {
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .desktop-icon img {
+        width: 50px;
+        height: 50px;
+      }
+
+      .desktop-icon span {
+        display: block;
+        font-size: 12px;
+        color: #333;
+        margin-top: 5px;
+      }
+
+      /* Animation pour le "+1" */
+      .plus-one {
+        position: absolute;
+        font-size: 16px;
+        color: green;
+        animation: float-up 1s ease-out forwards;
+        pointer-events: none; /* Empêche l'interaction avec l'élément */
+      }
+
+      @keyframes float-up {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+      }
+
+      .buy-button {
+        background: white;
+        color: black;
+        cursor: pointer;
+        padding: 4%;
+        border: #333 2px solid;
+        border-radius: 9px;
+      }
+      .buy-button.disabled {
+        background: #555;
+        color: white;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex flex-wrap w-screen gap-2 p-4">
+      <!-- Icône sur le fond -->
+      <div class="desktop-icon" id="desktop-icon">
+        <img src="/img/painticon.png" alt="Window Icon" />
+        <span>Open Window</span>
+      </div>
+
+      <!-- Icône supplémentaire sur le fond -->
+      <div class="desktop-icon" id="desktop-icon-2">
+        <img src="/img/painticon.png" alt="Second Window Icon" />
+        <span>Interest Clicker</span>
+      </div>
+    </div>
+
+    <!-- Fenêtre draggable -->
+    <div class="draggable hidden" id="draggable-window">
+      <div class="draggable-header">
+        <span>Draggable Window</span>
+        <div class="window-controls">
+          <button id="minimize">-</button>
+          <button id="maximize">□</button>
+          <button id="close">×</button>
+        </div>
+      </div>
+      <div class="draggable-content">
+        <p>
+          [Just someone who made things. Write things. Try things. Not sure
+          about the life, or whatever.]
+        </p>
+        <div class="text-center pt-8">
+          <p><a href="/dream_gallery">Dreams</a></p>
+          <p><a href="/art_gallery">Art</a></p>
+          <p><a href="/writing_gallery">Writing</a></p>
+          <p><a href="/games_gallery">Games</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clicker game -->
+
+    <!-- Deuxième fenêtre draggable -->
+    <div class="draggable" id="draggable-window-2">
+      <div class="draggable-header">
+        <span>Interest Clicker</span>
+        <div class="window-controls">
+          <button id="minimize-2">-</button>
+          <button id="maximize-2">□</button>
+          <button id="close-2">×</button>
+        </div>
+      </div>
+      <div class="draggable-content">
+        <p class="text-sm italic">
+          Click on the button to gain interest. The more you want, the more you
+          get !
+        </p>
+        <p><span class="text-2xl" id="total-click-counter">0</span> click(s)</p>
+        <button id="simple-click" class="buy-button">Click me c:</button>
+
+        <p class="text-xl">My ameliorations</p>
+
+        <p class="text-xl">Shop !!</p>
+        <p class="text-sm italic">Buy here this to obtain more interest !!</p>
+        <button id="buy-library-card" class="buy-button disabled">
+          <p class="text" id="library-card-text">Buy a library card</p>
+          <span class="text-xl cost" id="library-card-cost">20</span> clicks
+          <p class="italic">
+            <span class="effect" id="library-card-effect">1</span> click per
+            second
+          </p>
+        </button>
+
+        <button id="find-on-internet" class="buy-button disabled">
+          <p class="text" id="find-on-internet-text">Find on internet !</p>
+          <span class="text-xl cost" id="find-on-internet-cost">100</span>
+          clicks
+          <p class="italic">
+            <span class="effect" id="find-on-internet-effect">10</span> click
+            per second
+          </p>
+        </button>
+      </div>
+    </div>
+
+    <!-- Barre en bas -->
+    <div class="taskbar">
+      <div class="start-menu">
+        <img src="/path/to/start-icon.png" alt="Start" />
+        <span>Start</span>
+      </div>
+      <div class="active-apps" id="active-apps"></div>
+      <div class="time">
+        <span id="current-time"></span>
+      </div>
+    </div>
+
+    <script>
+      let totalClicks = 0;
+
+      class Upgrade {
+        constructor({ name, levels, buttonId }) {
+          this.name = name;
+          this.level = 1;
+          this.levels = levels;
+          this.maxLevel = levels.length;
+          this.cost = levels[0].cost;
+          this.effect = levels[0].effect;
+          this.buttonId = buttonId;
+          this.isActive = false;
+
+          this.button = document.getElementById(buttonId);
+          this.init();
+        }
+
+        init() {
+          // Ajoute un gestionnaire d'événements au bouton
+          this.button.addEventListener("click", () => this.purchase());
+          this.updateButtonState();
+        }
+
+        purchase() {
+          if (totalClicks >= this.cost && !this.isActive) {
+            totalClicks -= this.cost; // Retire le coût actuel
+            clickCounter.textContent = totalClicks; // Met à jour l'affichage
+            this.isActive = true; // Active l'amélioration
+            this.startEffect(); // Démarre l'effet
+            this.upgrade(); // Passe au niveau suivant
+          }
+        }
+
+        startEffect() {
+          setInterval(() => {
+            totalClicks += this.effect;
+            clickCounter.textContent = totalClicks; // Met à jour l'affichage
+            this.updateButtonState(); // Vérifie si le bouton doit être activé
+          }, 1000);
+        }
+
+        upgrade() {
+          if (this.level < this.maxLevel) {
+            this.level++;
+            const nextLevel = this.levels[this.level - 1];
+            this.cost = nextLevel.cost;
+            this.effect = nextLevel.effect;
+
+            // Met à jour dynamiquement le texte, le coût et l'effet dans le bouton
+            this.button.querySelector(".text").textContent = nextLevel.text;
+            this.button.querySelector(".cost").textContent = nextLevel.cost;
+            this.button.querySelector(".effect").textContent = nextLevel.effect;
+
+            this.isActive = false; // Permet un nouvel achat
+            this.updateButtonState();
+          } else {
+            this.button.textContent = "Max level reached"; // Indique que le niveau max est atteint
+            this.button.classList.add("disabled");
+          }
+        }
+
+        updateButtonState() {
+          if (totalClicks >= this.cost && !this.isActive) {
+            this.button.classList.remove("disabled");
+          } else {
+            this.button.classList.add("disabled");
+          }
+        }
+      }
+
+      //Add here some upgrades !
+      //To create new upgrades, add an upgrade in this list
+      //And copy a buttonId like this : "buy-library-card"
+      //And add a new button in the HTML with this id
+      const upgrades = {
+        libraryCard: new Upgrade({
+          name: "Library Card",
+          buttonId: "buy-library-card",
+          levels: [
+            { text: "Buy a library card", cost: 20, effect: 1 },
+            { text: "Buy a premium abonnement", cost: 50, effect: 2 },
+            { text: "Buy a VIP membership", cost: 100, effect: 5 },
+          ],
+        }),
+        searchOnInternet: new Upgrade({
+          name: "Search on Internet",
+          buttonId: "find-on-internet",
+          levels: [
+            { text: "Search on Internet", cost: 100, effect: 5 },
+            { text: "Buy a faster connection", cost: 200, effect: 10 },
+            { text: "Buy a supercomputer", cost: 500, effect: 20 },
+          ],
+        }),
+      };
+
+      function updateAllButtons() {
+        Object.values(upgrades).forEach((upgrade) =>
+          upgrade.updateButtonState()
+        );
+      }
+
+      // Fonction générique pour rendre une fenêtre draggable
+      function makeDraggable(draggableId, headerSelector) {
+        const draggable = document.getElementById(draggableId);
+        const header = draggable.querySelector(headerSelector);
+
+        let offsetX = 0;
+        let offsetY = 0;
+        let isDragging = false;
+
+        header.addEventListener("mousedown", (e) => {
+          isDragging = true;
+          offsetX = e.clientX - draggable.offsetLeft;
+          offsetY = e.clientY - draggable.offsetTop;
+          document.addEventListener("mousemove", onMouseMove);
+          document.addEventListener("mouseup", onMouseUp);
+        });
+
+        function onMouseMove(e) {
+          if (!isDragging) return;
+          draggable.style.left = `${e.clientX - offsetX}px`;
+          draggable.style.top = `${e.clientY - offsetY}px`;
+        }
+
+        function onMouseUp() {
+          isDragging = false;
+          document.removeEventListener("mousemove", onMouseMove);
+          document.removeEventListener("mouseup", onMouseUp);
+        }
+      }
+
+      // Fonction générique pour gérer les contrôles d'une fenêtre
+      function setupWindowControls(
+        draggableId,
+        minimizeId,
+        maximizeId,
+        closeId,
+        appButtonId,
+        appName
+      ) {
+        const draggable = document.getElementById(draggableId);
+        const content = draggable.querySelector(".draggable-content");
+        const minimizeButton = document.getElementById(minimizeId);
+        const maximizeButton = document.getElementById(maximizeId);
+        const closeButton = document.getElementById(closeId);
+        const activeApps = document.getElementById("active-apps");
+
+        minimizeButton.addEventListener("click", () => {
+          content.classList.toggle("hidden");
+        });
+
+        maximizeButton.addEventListener("click", () => {
+          if (draggable.style.width === "100%") {
+            draggable.style.width = "400px";
+            draggable.style.height = "auto";
+            draggable.style.top = "100px";
+            draggable.style.left = "100px";
+          } else {
+            draggable.style.width = "100%";
+            draggable.style.height = "100%";
+            draggable.style.top = "0";
+            draggable.style.left = "0";
+          }
+        });
+
+        closeButton.addEventListener("click", () => {
+          draggable.style.display = "none";
+          const appButton = document.getElementById(appButtonId);
+          if (appButton) appButton.remove();
+        });
+
+        // Ajouter l'application à la barre des tâches si elle n'existe pas déjà
+        if (!document.getElementById(appButtonId)) {
+          const appButton = document.createElement("div");
+          appButton.id = appButtonId;
+          appButton.className = "active-app";
+          appButton.textContent = appName;
+          appButton.addEventListener("click", () => {
+            draggable.style.display = "block";
+            draggable.classList.remove("hidden");
+          });
+          activeApps.appendChild(appButton);
+        }
+      }
+
+      // Fonction générique pour gérer les icônes du bureau
+      function setupDesktopIcon(iconId, draggableId) {
+        const desktopIcon = document.getElementById(iconId);
+        const draggable = document.getElementById(draggableId);
+
+        desktopIcon.addEventListener("click", () => {
+          draggable.style.display = "block";
+          draggable.classList.remove("hidden");
+        });
+      }
+
+      // Initialisation des fenêtres
+      makeDraggable("draggable-window", ".draggable-header");
+      setupWindowControls(
+        "draggable-window",
+        "minimize",
+        "maximize",
+        "close",
+        "app-button",
+        "Draggable Window"
+      );
+      setupDesktopIcon("desktop-icon", "draggable-window");
+
+      makeDraggable("draggable-window-2", ".draggable-header");
+      setupWindowControls(
+        "draggable-window-2",
+        "minimize-2",
+        "maximize-2",
+        "close-2",
+        "app-button-2",
+        "Second Window"
+      );
+      setupDesktopIcon("desktop-icon-2", "draggable-window-2");
+
+      // Script pour afficher l'heure actuelle
+      function updateTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, "0");
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        document.getElementById(
+          "current-time"
+        ).textContent = `${hours}:${minutes}`;
+      }
+      setInterval(updateTime, 1000);
+      updateTime(); // Appel initial
+
+      // Gestion du compteur de clics
+      const clickButton = document.getElementById("simple-click");
+      const clickCounter = document.getElementById("total-click-counter");
+
+      clickButton.addEventListener("click", () => {
+        totalClicks++; // Incrémente le compteur
+        clickCounter.textContent = totalClicks; // Met à jour l'affichage
+
+        const plusOne = document.createElement("span");
+        plusOne.textContent = "+1";
+        plusOne.className = "plus-one";
+
+        // Positionne le "+1" au-dessus du bouton
+        const buttonRect = clickButton.getBoundingClientRect();
+        plusOne.style.position = "absolute";
+        plusOne.style.left = `15%`; // Ajuste horizontalement
+        // plusOne.style.top = `-10px`; // Ajuste verticalement
+
+        // Ajoute le "+1" au bouton
+        clickButton.appendChild(plusOne);
+
+        // Supprime l'élément après l'animation
+        plusOne.addEventListener("animationend", () => {
+          plusOne.remove();
+        });
+
+        updateAllButtons();
+      });
+
+      const libraryCardButton = document.getElementById(
+        upgrades.libraryCard.buttonId
+      );
+
+      libraryCardButton.addEventListener("click", () => {
+        console.log("Library card button clicked");
+        upgrades.libraryCard.purchase();
+      });
+
+      // Vérifie si le bouton doit être activé
+      clickButton.addEventListener("click", () => {
+        const libraryCard = upgrades.libraryCard;
+        const nextLevel = libraryCard.levels[libraryCard.level - 1]; // Niveau actuel ou suivant
+
+        if (totalClicks >= libraryCard.cost && !libraryCard.isActive) {
+          libraryCardButton.classList.remove("disabled");
+        } else if (nextLevel && totalClicks < nextLevel.cost) {
+          libraryCardButton.classList.add("disabled");
+        }
+      });
+
+      const searchOnInternetButton = document.getElementById(
+        upgrades.searchOnInternet.buttonId
+      );
+      searchOnInternetButton.addEventListener("click", () => {
+        upgrades.searchOnInternet.purchase();
+      });
+
+      // Vérifie si le bouton doit être activé
+      clickButton.addEventListener("click", () => {
+        totalClicks++;
+        clickCounter.textContent = totalClicks;
+        updateAllButtons();
+      });
+
+      updateAllButtons();
+    </script>
+  </body>
+</html>

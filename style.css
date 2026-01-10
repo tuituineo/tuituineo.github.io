@@ -1,0 +1,78 @@
+
+/* CSS is how you can add style to your website, such as colors, fonts, and positioning of your
+   HTML content. To learn how to do something, just try searching Google for questions like
+   "how to change link color." */
+
+body {
+  background-color: white;
+  color: black;
+  font-family: Verdana;
+}
+
+@font-face {
+  font-family: "CaveatBrush";
+  src: url("/fonts/CaveatBrush-Regular.ttf") format("truetype");
+}
+
+.band_familiarSpaces {
+  color: white;
+}
+.band_real-notes {
+  color: white;
+  padding: 1em;
+  background-color: #000000;
+}
+.vhs-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover; /* Ajuste l'image pour couvrir tout le conteneur */
+  background-position: center; /* Centre l'image dans le conteneur */
+  background-repeat: no-repeat; /* Empêche la répétition de l'image */
+}
+
+.vhs-container p {
+  font-family: "CaveatBrush", cursive;
+  line-height: 0.8;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  z-index: 10;
+  position: relative;
+  min-height: 1vh;
+  width: 50%;
+  text-align: center;
+  margin-left: 3vw;
+}
+
+.vhs-container.vhs-2 {
+  background-image: url("/dream_gallery/img/vhs-2.png"); /* Chemin vers l'image */
+}
+.vhs-container.vhs-2 p {
+  margin-left: -3vw;
+  margin-top: 5%;
+}
+.vhs-container.vhs-3 {
+  background-image: url("/dream_gallery/img/vhs-3.png"); /* Chemin vers l'image */
+  height: 7vh;
+}
+.vhs-container.vhs-3 p {
+  margin-left: -30%;
+  margin-top: 2%;
+  width: 60%;
+}
+.vhs-container.vhs-4 {
+  background-image: url("/dream_gallery/img/vhs-4.png"); /* Chemin vers l'image */
+  height: 7vh;
+}
+.vhs-container.vhs-4 p {
+  margin-left: -20%;
+  margin-top: 5%;
+  width: 60%;
+  transform: rotate(-2deg);
+}
+
+.vhs-container img {
+  position: absolute;
+  z-index: 0;
+}

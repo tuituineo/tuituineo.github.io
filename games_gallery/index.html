@@ -1,0 +1,61 @@
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Games Gallery</title>
+        <script src="/tailwind.js"></script>
+        <link href="/style.css" rel="stylesheet" type="text/css" media="all" />
+    </head>
+    <body>
+        <div class="television">
+            <img class="ds-image" src="ds.png" alt="DS" />
+            <div class="centered-rectangle">
+                <iframe frameborder="0" src="https://itch.io/embed-upload/16013232?color=000000" allowfullscreen width="680" height="380" style="border-radius: 12px; display: block;">
+                    <a href="https://tuituineo.itch.io/new-year">Play new year on itch.io</a>
+                </iframe>
+            </div>
+        </div>
+       
+        <style>
+            .television {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100vw;
+                height: 100vh;
+                 background: #1f2937 url('background.png') no-repeat center center;
+                            background-size: cover;
+            }
+            .ds-image {
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                max-width: 100vw;
+                max-height: 100vh;
+                height:100vh;
+                z-index: 0;
+                pointer-events: none;
+            }
+            .centered-rectangle {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #e5e7eb;
+                border-radius: 24px;
+                box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+                width: 572px;
+                height: 339px;
+                padding: 0;
+                margin: 0 auto;
+                max-width: 100vw;
+                z-index: 1;
+                position:relative;
+                top:-201px;
+            }
+        </style>
+    </body>
+</html>

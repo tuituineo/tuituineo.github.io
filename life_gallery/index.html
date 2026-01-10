@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dreams</title>
+    <!-- The style.css file allows you to change the look of your web pages.
+         If you include the next line in all your web pages, they will all share the same look.
+         This makes it easier to make new pages for your site. -->
+    <script src="/tailwind.js"></script>
+    <link href="/style.css" rel="stylesheet" type="text/css" media="all" />
+  </head>
+  <body>
+    <div class="pl-2 flex flex-row gap-2">
+      <p><a href="/">Somewhere</a></p>
+      |
+      <p><a href="/art_gallery">Art</a></p>
+      |
+      <p><a href="/writing_gallery">Writing</a></p>
+      |
+      <p><a href="/games_gallery">Games</a></p>
+    </div>
+
+    <div class="w-full flex flex-row h-screen">
+      <!-- Left part -->
+      <section
+        class="flex flex-col items-center h-screen justify-center bg-red-100 w-5/12 overflow-scroll"
+      >
+        <p>[Dreams.]</p>
+
+        <div class="flex flex-col gap-0 w-96">
+          <div class="vhs-container vhs-3">
+            <p>
+              <a
+                href="#"
+                class="dream-link"
+                data-url="/dream_gallery/dreams/20250418"
+                >19/04/25 - Minecraft, Deception et Game</a
+              >
+            </p>
+          </div>
+
+          <div class="vhs-container vhs-2">
+            <p>
+              <a
+                href="#"
+                class="dream-link"
+                data-url="/dream_gallery/dreams/20250418"
+                >18/04/25 - Jump, Car, and Arm</a
+              >
+            </p>
+          </div>
+
+          <div class="vhs-container vhs-2">
+            <p>
+              <a
+                href="#"
+                class="dream-link"
+                data-url="/dream_gallery/dreams/20250417"
+                >17/04/25 - Absence, Sadness, and the Sea</a
+              >
+            </p>
+          </div>
+
+          <div class="vhs-container">
+            <img src="/dream_gallery/img/vhs-1.png" alt="vhs" />
+            <p>
+              <a
+                href="#"
+                class="dream-link"
+                data-url="/dream_gallery/dreams/20250416"
+                >16/04/25 - Car, Grudge, and Understanding</a
+              >
+            </p>
+          </div>
+
+          <div class="text-center">
+            <div class="relative flex vhs-container">
+              <img
+                src="/dream_gallery/img/vhs-1.png"
+                alt="vhs"
+                class="absolute z-0"
+              />
+              <p class="ml-28 mt-2 w-6/12 text-base/5 text-center">
+                <a
+                  href="#"
+                  class="dream-link"
+                  data-url="/dream_gallery/dreams/20250415"
+                  >15/04/25 - Tries, Error and Sadness</a
+                >
+              </p>
+            </div>
+
+            <div class="relative flex">
+              <img
+                src="/dream_gallery/img/vhs-1.png"
+                alt="vhs"
+                class="absolute z-0"
+              />
+              <p
+                class="z-10 relative ml-28 mt-2 w-6/12 text-base/5 text-center"
+              >
+                <a
+                  href="#"
+                  class="dream-link"
+                  data-url="/dream_gallery/dreams/20250414"
+                  >14/04/25 - Dig, Mom and DIY</a
+                >
+              </p>
+            </div>
+
+            <div class="vhs-container vhs-3">
+              <p>
+                <a
+                  href="#"
+                  class="dream-link"
+                  data-url="/dream_gallery/dreams/20250413"
+                  >13/04/25 - Classy, Gunther and Despair</a
+                >
+              </p>
+            </div>
+
+            <!--14-06-23-->
+            <div class="vhs-container vhs-2">
+              <p>
+                <a
+                  href="#"
+                  class="dream-link"
+                  data-url="/dream_gallery/dreams/20230614"
+                  >14/06/2023 - Kalimba, birthday, satisfaction
+                </a>
+              </p>
+            </div>
+
+            <!--13-06-23-->
+            <div class="vhs-container vhs-4">
+              <p>
+                <a
+                  href="#"
+                  class="dream-link"
+                  data-url="/dream_gallery/dreams/20230613"
+                  >13/06/2023 - Improv, Gaëlle, and Performance
+                </a>
+              </p>
+            </div>
+
+            <!--07/06/2023-->
+            <div class="vhs-container vhs-4">
+              <p>
+                <a
+                  href="#"
+                  class="dream-link"
+                  data-url="/dream_gallery/dreams/20230607"
+                  >07/06/2023 - Child, Violence and Cosplay
+                </a>
+              </p>
+            </div>
+
+            <!--24/05/2023-->
+            <div class="">
+              <p>
+                <a
+                  href="#"
+                  class="dream-link"
+                  data-url="/memories/memories/20230524"
+                >
+                  2011
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Right part -->
+      <section
+        class="bg-yellow-100 w-7/12 flex flex-col justify-center items-center my-5 py-2"
+      >
+        <div class="w-full px-4 overflow-scroll h-full" id="right-part"></div>
+      </section>
+    </div>
+
+    <script>
+      // JavaScript pour gérer les clics sur les liens des rêves
+      document.querySelectorAll(".dream-link").forEach((link) => {
+        link.addEventListener("click", function (event) {
+          event.preventDefault(); // Empêche le comportement par défaut du lien
+          const url = this.getAttribute("data-url"); // Récupère l'URL du rêve
+          const rightPart = document.getElementById("right-part");
+          rightPart.innerHTML = "<p>Loading...</p>"; // Message de chargement
+
+          // Utilise fetch pour récupérer le contenu depuis l'URL
+          fetch(url)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`[${response.status}]`);
+              }
+              return response.text(); // Récupère le contenu en tant que texte
+            })
+            .then((data) => {
+              rightPart.innerHTML = data; // Affiche le contenu récupéré
+            })
+            .catch((error) => {
+              rightPart.innerHTML = `<p>[${error.message}]</p>`;
+            });
+        });
+      });
+    </script>
+  </body>
+</html>
