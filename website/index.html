@@ -101,6 +101,22 @@
       .desktop-icon {
         text-align: center;
         cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .desktop-icon.another-page::after {
+        content: " ";
+        font-size: 10px;
+        color: #666;
+        background: url("./img/redirect_arrow.png") no-repeat right center;
+        background-size: 14px 14px;
+        position: relative;
+        padding-right: 18px;
+        height: 14px;
+        top: -37px;
+        left: -21px;
       }
 
       .desktop-icon img {
@@ -151,7 +167,7 @@
     </style>
   </head>
   <body>
-    <div class="flex flex-wrap w-screen gap-2 p-4">
+    <div class="flex flex-wrap w-screen gap-4 p-4">
       <!-- Icône sur le fond -->
       <div class="desktop-icon" id="desktop-icon">
         <img src="./img/painticon.png" alt="Window Icon" />
@@ -166,24 +182,24 @@
 
       <!-- Icône OpenDS -->
       <a
-        class="desktop-icon"
+        class="desktop-icon another-page"
         id="desktop-icon-opends"
         target="_blank"
         href="./games_gallery"
       >
-        <img src="./img/painticon.png" alt="OpenDS Icon" />
-        <span>OpenDS</span>
+        <img src="./img/icon.jpg" alt="Games Icon" />
+        <span>Games</span>
       </a>
 
       <!-- Icône Pictochat -->
       <a
-        class="desktop-icon"
+        class="desktop-icon another-page"
         id="desktop-icon-pictochat"
         target="_blank"
         href="./pictochat"
       >
         <img src="./img/pictochat.png" alt="Pictochat Icon" />
-        <span>Pictochat</span>
+        <span>Pictochat Guestbook</span>
       </a>
     </div>
 
@@ -214,7 +230,7 @@
     <!-- Clicker game -->
 
     <!-- Deuxième fenêtre draggable -->
-    <div class="draggable" id="draggable-window-2">
+    <div class="draggable hidden" id="draggable-window-2">
       <div class="draggable-header">
         <span>Interest Clicker</span>
         <div class="window-controls">
@@ -439,29 +455,29 @@
           const appButton = document.getElementById(appButtonId);
           if (appButton) appButton.remove();
         });
-
-        // Ajouter l'application à la barre des tâches si elle n'existe pas déjà
-        if (!document.getElementById(appButtonId)) {
-          const appButton = document.createElement("div");
-          appButton.id = appButtonId;
-          appButton.className = "active-app";
-          appButton.textContent = appName;
-          appButton.addEventListener("click", () => {
-            draggable.style.display = "block";
-            draggable.classList.remove("hidden");
-          });
-          activeApps.appendChild(appButton);
-        }
       }
 
       // Fonction générique pour gérer les icônes du bureau
-      function setupDesktopIcon(iconId, draggableId) {
+      function setupDesktopIcon(iconId, draggableId, appButtonId, appName) {
         const desktopIcon = document.getElementById(iconId);
         const draggable = document.getElementById(draggableId);
+        const activeApps = document.getElementById("active-apps");
 
         desktopIcon.addEventListener("click", () => {
           draggable.style.display = "block";
           draggable.classList.remove("hidden");
+          // Ajouter l'application à la barre des tâches si elle n'existe pas déjà
+          if (!document.getElementById(appButtonId)) {
+            const appButton = document.createElement("div");
+            appButton.id = appButtonId;
+            appButton.className = "active-app";
+            appButton.textContent = appName;
+            appButton.addEventListener("click", () => {
+              draggable.style.display = "block";
+              draggable.classList.remove("hidden");
+            });
+            activeApps.appendChild(appButton);
+          }
         });
       }
 
@@ -475,7 +491,12 @@
         "app-button",
         "Draggable Window",
       );
-      setupDesktopIcon("desktop-icon", "draggable-window");
+      setupDesktopIcon(
+        "desktop-icon",
+        "draggable-window",
+        "app-button",
+        "Draggable Window",
+      );
 
       makeDraggable("draggable-window-2", ".draggable-header");
       setupWindowControls(
@@ -486,7 +507,12 @@
         "app-button-2",
         "Second Window",
       );
-      setupDesktopIcon("desktop-icon-2", "draggable-window-2");
+      setupDesktopIcon(
+        "desktop-icon-2",
+        "draggable-window-2",
+        "app-button-2",
+        "Second Window",
+      );
 
       // Script pour afficher l'heure actuelle
       function updateTime() {
