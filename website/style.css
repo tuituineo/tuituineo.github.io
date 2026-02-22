@@ -1,4 +1,3 @@
-
 /* CSS is how you can add style to your website, such as colors, fonts, and positioning of your
    HTML content. To learn how to do something, just try searching Google for questions like
    "how to change link color." */
@@ -11,7 +10,7 @@ body {
 
 @font-face {
   font-family: "CaveatBrush";
-  src: url("/fonts/CaveatBrush-Regular.ttf") format("truetype");
+  src: url("fonts/CaveatBrush-Regular.ttf") format("truetype");
 }
 
 .band_familiarSpaces {
@@ -46,14 +45,14 @@ body {
 }
 
 .vhs-container.vhs-2 {
-  background-image: url("/dream_gallery/img/vhs-2.png"); /* Chemin vers l'image */
+  background-image: url("dream_gallery/img/vhs-2.png"); /* Chemin vers l'image */
 }
 .vhs-container.vhs-2 p {
   margin-left: -3vw;
   margin-top: 5%;
 }
 .vhs-container.vhs-3 {
-  background-image: url("/dream_gallery/img/vhs-3.png"); /* Chemin vers l'image */
+  background-image: url("dream_gallery/img/vhs-3.png"); /* Chemin vers l'image */
   height: 7vh;
 }
 .vhs-container.vhs-3 p {
@@ -62,7 +61,7 @@ body {
   width: 60%;
 }
 .vhs-container.vhs-4 {
-  background-image: url("/dream_gallery/img/vhs-4.png"); /* Chemin vers l'image */
+  background-image: url("dream_gallery/img/vhs-4.png"); /* Chemin vers l'image */
   height: 7vh;
 }
 .vhs-container.vhs-4 p {

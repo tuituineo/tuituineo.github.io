@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fake OS</title>
-    <script src="/tailwind.js"></script>
-    <link href="/style.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="./tailwind.js"></script>
+    <link href="./style.css" rel="stylesheet" type="text/css" media="all" />
     <style>
       /* Style pour la barre en bas */
       .taskbar {
@@ -154,20 +154,36 @@
     <div class="flex flex-wrap w-screen gap-2 p-4">
       <!-- Icône sur le fond -->
       <div class="desktop-icon" id="desktop-icon">
-        <img src="/img/painticon.png" alt="Window Icon" />
+        <img src="./img/painticon.png" alt="Window Icon" />
         <span>Open Window</span>
       </div>
 
       <!-- Icône supplémentaire sur le fond -->
       <div class="desktop-icon" id="desktop-icon-2">
-        <img src="/img/painticon.png" alt="Second Window Icon" />
+        <img src="./img/painticon.png" alt="Second Window Icon" />
         <span>Interest Clicker</span>
       </div>
 
       <!-- Icône OpenDS -->
-      <a class="desktop-icon" id="desktop-icon-opends" target="_blank" href="/games_gallery">
-        <img src="/img/painticon.png" alt="OpenDS Icon" />
+      <a
+        class="desktop-icon"
+        id="desktop-icon-opends"
+        target="_blank"
+        href="./games_gallery"
+      >
+        <img src="./img/painticon.png" alt="OpenDS Icon" />
         <span>OpenDS</span>
+      </a>
+
+      <!-- Icône Pictochat -->
+      <a
+        class="desktop-icon"
+        id="desktop-icon-pictochat"
+        target="_blank"
+        href="./pictochat"
+      >
+        <img src="./img/pictochat.png" alt="Pictochat Icon" />
+        <span>Pictochat</span>
       </a>
     </div>
 
@@ -187,10 +203,10 @@
           about the life, or whatever.]
         </p>
         <div class="text-center pt-8">
-          <p><a href="/dream_gallery">Dreams</a></p>
-          <p><a href="/art_gallery">Art</a></p>
-          <p><a href="/writing_gallery">Writing</a></p>
-          <p><a href="/games_gallery">Games</a></p>
+          <p><a href="./dream_gallery">Dreams</a></p>
+          <p><a href="./art_gallery">Art</a></p>
+          <p><a href="./writing_gallery">Writing</a></p>
+          <p><a href="./games_gallery">Games</a></p>
         </div>
       </div>
     </div>
@@ -243,7 +259,7 @@
     <!-- Barre en bas -->
     <div class="taskbar">
       <div class="start-menu">
-        <img src="/path/to/start-icon.png" alt="Start" />
+        <img src="./path/to/start-icon.png" alt="Start" />
         <span>Start</span>
       </div>
       <div class="active-apps" id="active-apps"></div>
@@ -350,7 +366,7 @@
 
       function updateAllButtons() {
         Object.values(upgrades).forEach((upgrade) =>
-          upgrade.updateButtonState()
+          upgrade.updateButtonState(),
         );
       }
 
@@ -391,7 +407,7 @@
         maximizeId,
         closeId,
         appButtonId,
-        appName
+        appName,
       ) {
         const draggable = document.getElementById(draggableId);
         const content = draggable.querySelector(".draggable-content");
@@ -457,7 +473,7 @@
         "maximize",
         "close",
         "app-button",
-        "Draggable Window"
+        "Draggable Window",
       );
       setupDesktopIcon("desktop-icon", "draggable-window");
 
@@ -468,7 +484,7 @@
         "maximize-2",
         "close-2",
         "app-button-2",
-        "Second Window"
+        "Second Window",
       );
       setupDesktopIcon("desktop-icon-2", "draggable-window-2");
 
@@ -477,9 +493,8 @@
         const now = new Date();
         const hours = now.getHours().toString().padStart(2, "0");
         const minutes = now.getMinutes().toString().padStart(2, "0");
-        document.getElementById(
-          "current-time"
-        ).textContent = `${hours}:${minutes}`;
+        document.getElementById("current-time").textContent =
+          `${hours}:${minutes}`;
       }
       setInterval(updateTime, 1000);
       updateTime(); // Appel initial
@@ -514,7 +529,7 @@
       });
 
       const libraryCardButton = document.getElementById(
-        upgrades.libraryCard.buttonId
+        upgrades.libraryCard.buttonId,
       );
 
       libraryCardButton.addEventListener("click", () => {
@@ -535,7 +550,7 @@
       });
 
       const searchOnInternetButton = document.getElementById(
-        upgrades.searchOnInternet.buttonId
+        upgrades.searchOnInternet.buttonId,
       );
       searchOnInternetButton.addEventListener("click", () => {
         upgrades.searchOnInternet.purchase();
